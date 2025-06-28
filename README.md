@@ -10,6 +10,7 @@ Designed with a modern UI and a smooth dark gradient background, the app was dev
 ---
 
 🛠 Technologies Used
+
 ✅ HTML5 – Structure and layout
 
 ✅ CSS3 – Styling with gradients, responsiveness, and hover effects
@@ -21,6 +22,7 @@ Designed with a modern UI and a smooth dark gradient background, the app was dev
 ---
 
 🚀 Features
+
  ⏯ Start, Pause, and Reset buttons to control the stopwatch
  
 📝 Lap Recording: Saves timestamps for each lap
@@ -36,6 +38,7 @@ Designed with a modern UI and a smooth dark gradient background, the app was dev
 ---
 
 🧪 How to Run
+
 🔧 Requirements:
 
 Visual Studio Code (or any code editor)
@@ -49,6 +52,7 @@ Manually opening stopwatch.html in your browser.
 ---
 
 📁 Project Structure
+
 📦 stopwatch-app/
 
 ├── stopwatch.html         # Main stopwatch application
@@ -60,6 +64,7 @@ Manually opening stopwatch.html in your browser.
 ---
 
 🔍 Sample UI Elements
+
 00:00:00 time format (MM:SS:MS)
 
 Stylish control buttons:
