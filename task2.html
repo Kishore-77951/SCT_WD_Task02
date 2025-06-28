@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stopwatch</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .stopwatch {
+      background: #1c1c1c;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      width: 300px;
+    }
+
+    .display {
+      font-size: 48px;
+      color: #00ffea;
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      border: 2px solid #00ffea;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px;
+      font-size: 18px;
+      background: #007bff;
+      border: none;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .laps {
+      font-size: 16px;
+      color: #ccc;
+      max-height: 100px;
+      overflow-y: auto;
+      padding: 5px;
+      text-align: left;
+      border-top: 1px solid #444;
+      margin-top: 10px;
+    }
+
+    /* Optional scrollbar styling */
+    .laps::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .laps::-webkit-scrollbar-thumb {
+      background-color: #555;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="stopwatch">
+  <div class="display" id="time">00:00:000</div>
+  <div class="buttons">
+    <button onclick="start()">Start</button>
+    <button onclick="stop()">Stop</button>
+    <button onclick="reset()">Reset</button>
+    <button onclick="lap()">Lap</button>
+  </div>
+  <div class="laps" id="lapTimes"></div>
+</div>
+
+<script>
+  let startTime = 0;
+  let running = false;
+  let lapDisplay = document.getElementById("lapTimes");
+  let interval;
+  let elapsedBeforePause = 0;
+
+  function formatTime(ms) {
+    const minutes = String(Math.floor(ms / 60000)).padStart(2, '0');
+    const seconds = String(Math.floor((ms % 60000) / 1000)).padStart(2, '0');
+    const milliseconds = String(ms % 1000).padStart(3, '0');
+    return `${minutes}:${seconds}:${milliseconds}`;
+  }
+
+  function updateTime() {
+    const elapsed = Date.now() - startTime;
+    document.getElementById("time").textContent = formatTime(elapsed);
+  }
+
+  function start() {
+    if (!running) {
+      startTime = Date.now() - elapsedBeforePause;
+      interval = setInterval(updateTime, 10);
+      running = true;
+    }
+  }
+
+  function stop() {
+    if (running) {
+      clearInterval(interval);
+      elapsedBeforePause = Date.now() - startTime;
+      running = false;
+    }
+  }
+
+  function reset() {
+    stop();
+    startTime = 0;
+    elapsedBeforePause = 0;
+    document.getElementById("time").textContent = "00:00:000";
+    lapDisplay.innerHTML = '';
+  }
+
+  function lap() {
+    if (running) {
+      const currentTime = document.getElementById("time").textContent;
+      const lapItem = document.createElement("div");
+      lapItem.textContent = `Lap: ${currentTime}`;
+      lapDisplay.appendChild(lapItem);
+      lapDisplay.scrollTop = lapDisplay.scrollHeight; // Auto-scroll to latest
+    }
+  }
+</script>
+
+</body>
+</html>
